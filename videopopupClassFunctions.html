@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<style>
+.youtube-video-popup-container[aria-hidden="true"]{
+  z-index: -10000000;
+  top: -1000vh;
+  position: fixed;
+}
+
+.youtube-video-popup-container[aria-hidden="false"]{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, .2);
+  display: grid;
+  z-index: 10000000;
+}
+
+.inner-youtube-video-popup{
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  max-width: min(93vw, 800px);
+  width: 100%; 
+  box-sizing: border-box;
+}
+
+ 
+
+.close-popup--btn {
+  background: #9f9f9f;
+  width: 5em;
+  height: 5em;
+  font-size: 10px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  text-align: center;
+  display: grid;
+  z-index: 1;
+}
+
+
+button.show-youtube--popup{
+  background: none;
+  border: none;
+  width: auto;
+  text-decoration: underline;
+}
+
+button.show-youtube--popup:focus,
+button.show-youtube--popup:hover,  
+button.show-youtube--popup:active{
+  background: none;
+  border: none;
+  width: auto;
+  text-decoration: none;
+}
+</style>
+
+<style>
+body.no-scroll {
+    overflow-y: hidden;
+}
+
+.youtube-video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+}
+.youtube-video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
+
+<!-- Youtube PopUp | JS --> 
+<script>
+function toggleYoutubePopup(ele){ 
+  const ariaHiddenAtt = document.querySelector(ele).getAttribute("aria-hidden");
+  let result = (ariaHiddenAtt == "true") ? 
+    document.querySelector(ele).setAttribute("aria-hidden", "false") : 
+    document.querySelector(ele).setAttribute("aria-hidden", "true");  
+}
+
+//const vidTag = document.getElementById("video-container");
+const vidSrc = document.getElementById("video-src");
+
+function loadVideoUrl(url){ 
+  vidSrc.setAttribute("src",url);
+  //vidTag.play();
+}
+
+function removeVideoUrl(){
+  //vidTag.pause();
+  vidSrc.setAttribute("src","");
+}
+
+function showVideoPopUp(btn,popup){ 
+  let videoUrl = btn.getAttribute("data-video-url"); 
+  loadVideoUrl(videoUrl);
+  toggleYoutubePopup(popup); 
+}
+
+function hideVideoPopUp(popup){ 
+  toggleYoutubePopup(popup); 
+  removeVideoUrl();
+}
+
+function toggleBodyScroll(){
+  let body = document.querySelector('body');
+  body.classList.toggle("no-scroll");
+}
+ 
+</script>  
+
+
+<!-- Youtube Video Container -->
+<section class="youtube-video-popup-container" aria-hidden="true">
+  <div class="inner-youtube-video-popup">
+
+    <button 
+      class="close-popup--btn" 
+      onClick="hideVideoPopUp('.youtube-video-popup-container')">
+        <div class="close-icon"></div>
+        <div class="screen-reader-text">Close Youtube Button</div> 
+    </button>
+     
+    <div class="youtube-video-container"  >
+      <div class="video-loader">
+        <div class="loading-icon"></div>
+        <div>Loading...</div>
+      </div>
+
+      <iframe 
+        id="video-src"
+        class="youtube-video--iframe"
+        width="560" height="315" 
+        src="https://www.youtube.com/embed/z-9w1xxWmas" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+      
+    </div><!-- youtube-video-container -->
+  </div>
+</section>
+  
+</body>
+</html>
