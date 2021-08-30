@@ -1,15 +1,15 @@
 body.no-scroll {
     overflow-y: hidden;
 }
-/*
+
 .landing-page--popup-container[aria-hidden="true"]{
   z-index: -10000000;
   top: -1000vh;
   position: fixed;
-}*/
+}
 
-/*.landing-page--popup-container[aria-hidden="false"]{*/
-.landing-page--popup-container{
+.landing-page--popup-container[aria-hidden="false"]{
+/*.landing-page--popup-container{*/
   position: fixed;
   top: 0;
   left: 0;
