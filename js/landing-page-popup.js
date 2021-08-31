@@ -59,15 +59,27 @@ class LandingPagePopup{
                 <button 
                   class="close-popup--btn" 
                   onClick="removeLandingPagePopUp(this)">
-                    <div class="close-icon"></div>
+                    <div class="close-popup--icon"></div>
                     <div class="screen-reader-text">Close ${popupContent.type} Button</div> 
                 </button>
                  
                 <div class="${popupContent.type}-container"  >
-                  <div class="video-loader">
-                    <div class="loading-icon"></div>
-                    <div>Loading...</div>
-                  </div> 
+                  
+                  <div class="landing-page--popup__loading">
+                    <div class="landing-page--popup__dot-animation">
+                      <div>
+                        <div class="landing-page--popup__dot landing-page--popup__dot-1"></div>
+                      </div>
+                      <div>
+                        <div class="landing-page--popup__dot landing-page--popup__dot-2"></div>
+                      </div>
+                      <div>
+                       <div class="landing-page--popup__dot landing-page--popup__dot-3"></div>
+                      </div>
+                    </div>
+                    <div class="landing-page--popup__loading-text">LOADING</div>
+                  </div>
+ 
                   ${popupContent.source}
                 </div><!-- ${popupContent.type}-container -->
               </div>`;
@@ -79,7 +91,11 @@ class LandingPagePopup{
     document.body.appendChild( this.createPopupContent() );
   }
 
- 
+  removeLandingPagePopUp(btn){
+    let popup = btn.closest(".landing-page--popup-container");
+    popup.setAttribute("aria-hidden","true");
+    popup.remove();
+  }
 
 }
 
