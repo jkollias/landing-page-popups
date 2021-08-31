@@ -104,4 +104,5 @@ function removeLandingPagePopUp(btn){
   let popup = btn.closest(".landing-page--popup-container");
   popup.setAttribute("aria-hidden","true");
   popup.remove();
+  document.body.classList.remove('no-scroll');
 }
